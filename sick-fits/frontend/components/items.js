@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Item from '../components/item';
 
-const ALL_ITEMS_QUERY = gql`
+export const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY {
     items {
       id
