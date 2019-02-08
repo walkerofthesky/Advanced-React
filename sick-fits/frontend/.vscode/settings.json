@@ -1,4 +1,8 @@
 {
+  "files.associations": {
+    "**/components/**/*.js": "javascriptreact",
+    "**/pages/**/*.js": "javascriptreact"
+  },
   "workbench.colorCustomizations": {
     "titleBar.activeForeground": "#000",
     "titleBar.inactiveForeground": "#000000CC",
