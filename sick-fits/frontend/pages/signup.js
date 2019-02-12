@@ -13,7 +13,6 @@ const SignupPage = () => (
   <Columns>
     <Signup />
     <Signin />
-    <Signup />
   </Columns>
 );
 
