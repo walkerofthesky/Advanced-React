@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Error from './ErrorMessage';
@@ -56,6 +57,29 @@ const Permissions = () => (
 );
 
 class User extends React.Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      email: PropTypes.string,
+      permissions: PropTypes.array
+    }).isRequired
+  };
+
+  state = {
+    permissions: this.props.user.permissions
+  };
+
+  handlePermissionChange = e => {
+    const { value } = e.target;
+
+    this.setState(prevState => ({
+      permissions: prevState.permissions.includes(value)
+        ? prevState.permissions.filter(permission => permission !== value)
+        : [...prevState.permissions, value]
+    }));
+  };
+
   render() {
     const { user } = this.props;
     return (
@@ -63,11 +87,13 @@ class User extends React.Component {
         <td>{user.name}</td>
         <td>{user.email}</td>
         {possiblePermissions.map(permission => (
-          <td>
+          <td key={permission}>
             <label htmlFor={`${user.id}-permission-${permission}`}>
               <input
                 type="checkbox"
-                defaultChecked={user.permissions.includes(permission)}
+                checked={this.state.permissions.includes(permission)}
+                value={permission}
+                onChange={this.handlePermissionChange}
               />
             </label>
           </td>
