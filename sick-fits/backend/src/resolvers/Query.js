@@ -51,6 +51,22 @@ const Query = {
     }
     // 4. Return the order
     return order;
+  },
+  async orders(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+    // 1. Make sure they're logged in
+    if (!userId) {
+      throw new Error('You are not logged in!');
+    }
+    // 2. Query the orders associated with logged in user
+    const orders = await ctx.db.query.orders(
+      {
+        where: { user: { id: userId } }
+      },
+      info
+    );
+    // 3. Return orders
+    return orders;
   }
 };
 
